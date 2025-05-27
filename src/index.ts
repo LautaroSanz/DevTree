@@ -9,5 +9,7 @@ server.listen(port, () => {console.log(colors.magenta.italic(`Servidor Running e
 
 })
 
+let productName="Tablet"
+
 
 
