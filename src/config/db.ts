@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import colors from 'colors'
 export const connectDB= async ()=> {
 
     try{
@@ -9,7 +9,7 @@ export const connectDB= async ()=> {
 
     }
     catch (error){
-        console.log(error.message)
+        console.log(colors.bgRed(error.message))
         process.exit(1)
     }
 
