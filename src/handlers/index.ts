@@ -1,16 +1,11 @@
 import type { Request, Response } from 'express'  //aplicamos inferencia par req,res asi evitamos type: any
 import slug from 'slug'
 import User from "../models/User"
-import { hashPassword } from '../utils/auth';
-import { validationResult } from 'express-validator';
+import { checkPassword, hashPassword } from '../utils/auth';
+
 
 export const createAccount=async (req : Request, res:Response)=>{ //usamos post para cifrado  de datos
     
-    //manejar errores
-    let errors = validationResult(req)
-    if (!errors.isEmpty()){
-        return res.status(400).json({erorrs: errors.array()})
-    }
 
 
     const {email, password}=req.body
@@ -37,4 +32,35 @@ export const createAccount=async (req : Request, res:Response)=>{ //usamos post 
     user.handle = handle
     await user.save()
     return res.status(201).send("Registro creado correctamente")
+}
+
+
+export const login = async (req : Request, res : Response)=>{
+
+    
+
+    
+    const {email, password}=req.body
+    const user=await User.findOne({email})
+
+    //check email 
+    if(!user) {
+        const error=new Error('Usuario no existe')
+        
+        return res.status(404).json({error: error.message})
+    }
+
+    //check password
+
+    const isPasswordCorrect= await checkPassword(password,user.password)
+
+    if(!isPasswordCorrect) {
+        const error=new Error('Password Incorrecto')
+        
+        return res.status(401).json({error: error.message})
+    }
+
+
+    return res.status(200).send("Logueado correctamente")
+
 }
