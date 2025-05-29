@@ -1,7 +1,8 @@
 import { Router } from 'express'
-import {createAccount,login } from './handlers/index'
+import {createAccount,getUser,login } from './handlers/index'
 import {body} from 'express-validator'
 import { handleInputErrors } from './middleware/validation'
+import { authenticate } from './handlers/auth';
 
 const router=Router()
 
@@ -13,10 +14,15 @@ router.post('/auth/register',
 
     handleInputErrors,
     createAccount)
-export default router
+
 
 router.post('/auth/login', 
     body('email').isEmail().withMessage('El email debe ser valido'),
     body('password').notEmpty().withMessage('Password Obligatorio'),
     handleInputErrors,
     login)
+
+router.get('/user', authenticate,getUser) 
+
+
+export default router

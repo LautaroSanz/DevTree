@@ -20,7 +20,7 @@ export default function Router(){
             <Route path='/admin' element={<AppLayout/>}>
 
                 <Route index={true} element={<LinkTreeView/>}/>
-                <Route path='/profile' element={<ProfileView/>}/>
+                <Route path='profile' element={<ProfileView/>}/>
             </Route> 
 
 

@@ -5,6 +5,7 @@ import { checkPassword, hashPassword } from '../utils/auth';
 import { generateJWT } from '../utils/jwt';
 
 
+
 export const createAccount=async (req : Request, res:Response)=>{ //usamos post para cifrado  de datos
     
 
@@ -62,4 +63,8 @@ export const login = async (req : Request, res : Response)=>{
 
     return res.send(token)
 
+}
+
+export const getUser= async (req: Request,res:Response) =>{
+     res.json(req.user)
 }
