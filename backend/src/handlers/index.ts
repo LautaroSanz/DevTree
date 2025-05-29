@@ -2,6 +2,7 @@ import type { Request, Response } from 'express'  //aplicamos inferencia par req
 import slug from 'slug'
 import User from "../models/User"
 import { checkPassword, hashPassword } from '../utils/auth';
+import { generateJWT } from '../utils/jwt';
 
 
 export const createAccount=async (req : Request, res:Response)=>{ //usamos post para cifrado  de datos
@@ -36,9 +37,6 @@ export const createAccount=async (req : Request, res:Response)=>{ //usamos post 
 
 
 export const login = async (req : Request, res : Response)=>{
-
-    
-
     
     const {email, password}=req.body
     const user=await User.findOne({email})
@@ -60,7 +58,8 @@ export const login = async (req : Request, res : Response)=>{
         return res.status(401).json({error: error.message})
     }
 
+    const token=generateJWT({id: user._id})
 
-    return res.status(200).send("Logueado correctamente")
+    return res.send(token)
 
 }

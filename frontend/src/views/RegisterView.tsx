@@ -25,6 +25,7 @@ export default function LoginView() {
     try{
         const {data}= await api.post(`/auth/register`,formData)
         toast.success(data)
+
     }
     catch (error){
         if(isAxiosError(error) && error.response){
