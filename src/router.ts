@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { body } from 'express-validator';
-import { createAccount } from "./handlers";
+import { createAccount, login } from "./handlers";
 
 const router=Router()
 
@@ -25,5 +25,19 @@ router.post('/auth/register',
     .withMessage('El password debe ser mayor a 8 caracteres'),
 
     createAccount)
+
+router.post('/auth/login', 
+    
+    body('email')
+    .isEmail()
+    .withMessage('Email invalido'),
+
+    body('password')
+    .notEmpty()
+    .withMessage('Contraseña equivocada'),
+
+    login
+)
+
 
 export default router

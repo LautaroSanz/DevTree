@@ -2,10 +2,10 @@ import mongoose, { Schema } from "mongoose";
 
 
 export interface IUser{
-    handle:String,
-    name:String
-    email:String
-    password:String
+    handle:string,
+    name:string
+    email:string
+    password:string
 
 }
 
