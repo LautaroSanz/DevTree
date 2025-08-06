@@ -7,11 +7,7 @@ import { checkPassword, hashPassword } from "../utils/auth"
 export const createAccount = async (req: Request,res:Response)=>{    
     
 
-    let errors= validationResult(req)
-
-    if(!errors.isEmpty()){
-        return res.status(400).json({errors: errors.array()})
-    }
+    
 
     const {email,password} = req.body
     const userExists= await User.findOne({email})
