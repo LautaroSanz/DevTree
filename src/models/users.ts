@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 
 export interface IUser{
+    handle:String,
     name:String
     email:String
     password:String
@@ -11,6 +12,15 @@ export interface IUser{
 //schema para mongodb
 const userSchema= new Schema(
    {
+
+    handle:{
+        type: String,
+        required: true,
+        trim:true, //elimina espacios vacios
+        lowercase:true,
+        unique:true
+    },
+
     name:{
         type: String,
         required: true,
@@ -20,7 +30,8 @@ const userSchema= new Schema(
        type: String,
         required: true,
         trim:true,
-        unique:true,
+        lowercase:true,
+        unique:true
     },
     password:{
         type: String,
