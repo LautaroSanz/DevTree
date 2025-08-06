@@ -12,3 +12,8 @@ npm i -D @types/express
 npm i mongoose
 
 npm i dotenv
+
+npm i colors
+
+npm i bcrypt
+npm i --save-dev @types/bcrypt
